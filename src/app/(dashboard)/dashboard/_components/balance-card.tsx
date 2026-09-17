@@ -60,14 +60,14 @@ export function BalanceCard() {
             checked={active}
             onCheckedChange={setActive}
             aria-label="Card active"
-            className="data-checked:bg-[#42d38b]"
+            className="data-checked:bg-[#42d38b] data-unchecked:bg-[#98a2b3]"
           />
           <Badge
             className={cn(
               "h-[26px] w-[75px] rounded-[17px] text-xs leading-[19px] font-bold",
               active
                 ? "bg-[#d6f3e9] text-[#045130]"
-                : "bg-[#f2f4f7] text-[#667085]",
+                : "bg-[#fde1e1] text-[#912018]",
             )}
           >
             {active ? "Active" : "Inactive"}
