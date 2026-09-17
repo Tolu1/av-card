@@ -28,7 +28,7 @@ export function RecentTransactions({
         </Link>
       </div>
       <TransactionsTable
-        transactions={transactions}
+        transactions={transactions.slice(0, 6)}
         className="mt-3 hidden lg:table"
       />
       <TransactionsList

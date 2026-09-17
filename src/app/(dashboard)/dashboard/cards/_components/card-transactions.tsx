@@ -1,18 +1,6 @@
 "use client";
 
-import {
-  ChevronDownIcon,
-  ChevronsLeftIcon,
-  ChevronsRightIcon,
-} from "lucide-react";
 import { useState } from "react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-} from "@/components/ui/pagination";
 import {
   Select,
   SelectContent,
@@ -25,6 +13,7 @@ import { card } from "@/data/cards";
 import { transactions } from "@/data/transactions";
 import { CardOption } from "@dashboard/_components/card-option";
 import { CaretDownIcon } from "@dashboard/_components/icons";
+import { TablePagination } from "@dashboard/_components/table-pagination";
 import { TransactionsList } from "@dashboard/_components/transactions-list";
 import { TransactionsTable } from "@dashboard/_components/transactions-table";
 
@@ -33,6 +22,10 @@ export function CardTransactions({
   ...props
 }: React.ComponentProps<"section">) {
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(6);
+
+  const pageCount = Math.ceil(transactions.length / pageSize);
+  const rows = transactions.slice((page - 1) * pageSize, page * pageSize);
 
   return (
     <section
@@ -80,95 +73,24 @@ export function CardTransactions({
           </div>
         </div>
         <TransactionsTable
-          transactions={transactions}
+          transactions={rows}
           className="mt-3 hidden lg:table"
         />
-        <TransactionsList
-          transactions={transactions}
-          className="mt-[3px] lg:hidden"
-        />
+        <TransactionsList transactions={rows} className="mt-[3px] lg:hidden" />
       </div>
-      <div className="mt-[15px] flex items-center justify-center lg:mt-[19px] lg:justify-between lg:pl-7">
-        <div className="hidden items-center gap-1.5 text-sm leading-[23px] font-medium text-[#667085] lg:flex">
-          <label htmlFor="card-transactions-rows">Showing</label>
-          <Select defaultValue="6">
-            <SelectTrigger
-              id="card-transactions-rows"
-              icon={<ChevronDownIcon className="size-5 text-[#667085]" />}
-              className="w-[59px] gap-2.5 rounded-[4px] border-[#98a2b3] bg-white px-2.5 text-sm leading-[23px] font-semibold text-[#667085] data-[size=default]:h-9"
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="6">6</SelectItem>
-              <SelectItem value="10">10</SelectItem>
-              <SelectItem value="20">20</SelectItem>
-            </SelectContent>
-          </Select>
-          <span>of 30 results</span>
-        </div>
-        <Pagination className="mx-0 w-auto">
-          <PaginationContent className="gap-[7px] text-[#667085]">
-            <PaginationItem>
-              <PaginationLink
-                href="#"
-                aria-label="Go to previous page"
-                onClick={(event) => {
-                  event.preventDefault();
-                  setPage((current) => Math.max(1, current - 1));
-                }}
-                className="size-[35px] rounded-md text-[#667085] hover:bg-transparent"
-              >
-                <ChevronsLeftIcon className="size-3.5" />
-              </PaginationLink>
-            </PaginationItem>
-            {[1, 2, 3].map((number) => (
-              <PaginationItem key={number}>
-                <PaginationLink
-                  href="#"
-                  isActive={page === number}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    setPage(number);
-                  }}
-                  className="size-[35px] rounded-md border-0 text-xs leading-[19px] font-semibold text-[#667085] data-[active=true]:bg-[#5a43af] data-[active=true]:text-[#edeaf6]"
-                >
-                  {number}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            <PaginationItem>
-              <PaginationEllipsis className="w-4" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink
-                href="#"
-                isActive={page === 5}
-                onClick={(event) => {
-                  event.preventDefault();
-                  setPage(5);
-                }}
-                className="size-[35px] rounded-md border-0 text-xs leading-[19px] font-semibold text-[#667085] data-[active=true]:bg-[#5a43af] data-[active=true]:text-[#edeaf6]"
-              >
-                5
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink
-                href="#"
-                aria-label="Go to next page"
-                onClick={(event) => {
-                  event.preventDefault();
-                  setPage((current) => Math.min(5, current + 1));
-                }}
-                className="size-[35px] rounded-md text-[#667085] hover:bg-transparent"
-              >
-                <ChevronsRightIcon className="size-3.5" />
-              </PaginationLink>
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </div>
+      <TablePagination
+        id="card-transactions-rows"
+        page={page}
+        pageCount={pageCount}
+        onPageChange={setPage}
+        pageSize={pageSize}
+        onPageSizeChange={(size) => {
+          setPageSize(size);
+          setPage(1);
+        }}
+        totalResults={transactions.length}
+        className="mt-[15px] lg:mt-[19px] lg:pl-7"
+      />
     </section>
   );
 }

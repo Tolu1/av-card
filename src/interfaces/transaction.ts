@@ -3,6 +3,7 @@ export interface Transaction {
   narration: string;
   amount: string;
   date: string;
-  time: string;
+  recipient: string;
+  status: "successful";
   type: "credit" | "debit";
 }

@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { formatTransactionDate, formatTransactionTime } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import type { Transaction } from "@/interfaces/transaction";
 import { ArrowUpIcon } from "./icons";
@@ -63,9 +64,9 @@ export function TransactionsTable({
               {transaction.amount}
             </TableCell>
             <TableCell className="px-4 text-sm leading-5 text-black">
-              {transaction.date}
+              {formatTransactionDate(transaction.date)}
               <span className="block text-xs leading-[19.44px] text-[#101828]/50">
-                {transaction.time}
+                {formatTransactionTime(transaction.date)}
               </span>
             </TableCell>
             <TableCell className="px-4">
@@ -78,7 +79,7 @@ export function TransactionsTable({
   );
 }
 
-function TransactionTypeBadge({ type }: { type: Transaction["type"] }) {
+export function TransactionTypeBadge({ type }: { type: Transaction["type"] }) {
   return (
     <Badge
       className={cn(
