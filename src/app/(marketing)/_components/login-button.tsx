@@ -11,7 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 import { LoginForm } from "./login-form";
 
-export function LoginPopover() {
+export function LoginButton() {
   return (
     <Popover>
       <PopoverTrigger

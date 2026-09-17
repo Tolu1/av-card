@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { NotificationIcon } from "./icons";
-import { MobileMenu } from "./mobile-menu";
+import { MobileMenuButton } from "./mobile-menu-button";
 import { NavLinks } from "./nav-links";
 import { UserInfo } from "./user-info";
 
@@ -24,7 +24,7 @@ export function Navbar() {
           <UserInfo />
         </div>
         <div className="flex lg:hidden">
-          <MobileMenu />
+          <MobileMenuButton />
         </div>
       </div>
     </header>

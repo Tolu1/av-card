@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { LoginPopover } from "./login-popover";
+import { LoginButton } from "./login-button";
 
 export function Navbar() {
   return (
@@ -20,7 +20,7 @@ export function Navbar() {
         >
           Sign Up - It&rsquo;s Free!
         </Link>
-        <LoginPopover />
+        <LoginButton />
       </nav>
     </header>
   );
