@@ -3,7 +3,11 @@ import "./globals.css";
 import { Montserrat } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-sans" });
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: "AV Card",
