@@ -135,7 +135,13 @@ function TransferForm({ form, onNext }: TransferFormProps) {
             name="card"
             control={form.control}
             render={({ field }) => (
-              <TransferField label="Select Card" htmlFor="transfer-card">
+              <Field className="gap-1">
+                <FieldLabel
+                  htmlFor="transfer-card"
+                  className="text-[13px] leading-[23px] font-semibold text-[#667085]"
+                >
+                  Select Card
+                </FieldLabel>
                 <Select
                   value={field.value}
                   onValueChange={field.onChange}
@@ -154,18 +160,20 @@ function TransferForm({ form, onNext }: TransferFormProps) {
                     </SelectItem>
                   </SelectContent>
                 </Select>
-              </TransferField>
+              </Field>
             )}
           />
           <Controller
             name="accountNumber"
             control={form.control}
             render={({ field, fieldState }) => (
-              <TransferField
-                label="Enter Account Number"
-                htmlFor="transfer-account-number"
-                error={fieldState.error}
-              >
+              <Field data-invalid={fieldState.invalid} className="gap-1">
+                <FieldLabel
+                  htmlFor="transfer-account-number"
+                  className="text-[13px] leading-[23px] font-semibold text-[#667085]"
+                >
+                  Enter Account Number
+                </FieldLabel>
                 <Input
                   {...field}
                   id="transfer-account-number"
@@ -174,18 +182,23 @@ function TransferForm({ form, onNext }: TransferFormProps) {
                   aria-invalid={fieldState.invalid}
                   className="h-11 rounded-lg border-[#e6e7fe] bg-white px-4 text-sm leading-[26px] font-semibold text-[#667085] md:text-sm"
                 />
-              </TransferField>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
             )}
           />
           <Controller
             name="bank"
             control={form.control}
             render={({ field, fieldState }) => (
-              <TransferField
-                label="Select Bank"
-                htmlFor="transfer-bank"
-                error={fieldState.error}
-              >
+              <Field data-invalid={fieldState.invalid} className="gap-1">
+                <FieldLabel
+                  htmlFor="transfer-bank"
+                  className="text-[13px] leading-[23px] font-semibold text-[#667085]"
+                >
+                  Select Bank
+                </FieldLabel>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger
                     id="transfer-bank"
@@ -214,18 +227,23 @@ function TransferForm({ form, onNext }: TransferFormProps) {
                     {verifiedAccountName}
                   </p>
                 )}
-              </TransferField>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
             )}
           />
           <Controller
             name="amount"
             control={form.control}
             render={({ field, fieldState }) => (
-              <TransferField
-                label="Enter Amount"
-                htmlFor="transfer-amount"
-                error={fieldState.error}
-              >
+              <Field data-invalid={fieldState.invalid} className="gap-1">
+                <FieldLabel
+                  htmlFor="transfer-amount"
+                  className="text-[13px] leading-[23px] font-semibold text-[#667085]"
+                >
+                  Enter Amount
+                </FieldLabel>
                 <Input
                   {...field}
                   id="transfer-amount"
@@ -233,7 +251,10 @@ function TransferForm({ form, onNext }: TransferFormProps) {
                   aria-invalid={fieldState.invalid}
                   className="h-11 rounded-lg border-[#e6e7fe] bg-white px-4 text-sm leading-[26px] font-semibold text-[#667085] md:text-sm"
                 />
-              </TransferField>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
             )}
           />
         </FieldGroup>
@@ -245,33 +266,6 @@ function TransferForm({ form, onNext }: TransferFormProps) {
         </div>
       </form>
     </>
-  );
-}
-
-type TransferFieldProps = {
-  label: string;
-  htmlFor: string;
-  error?: { message?: string };
-  children: React.ReactNode;
-};
-
-function TransferField({
-  label,
-  htmlFor,
-  error,
-  children,
-}: TransferFieldProps) {
-  return (
-    <Field data-invalid={!!error} className="gap-1">
-      <FieldLabel
-        htmlFor={htmlFor}
-        className="text-[13px] leading-[23px] font-semibold text-[#667085]"
-      >
-        {label}
-      </FieldLabel>
-      {children}
-      {error && <FieldError errors={[error]} />}
-    </Field>
   );
 }
 

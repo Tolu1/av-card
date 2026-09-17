@@ -94,24 +94,64 @@ function TransferForm({ onTransfer }: { onTransfer: () => void }) {
           name="from"
           control={form.control}
           render={({ field }) => (
-            <CardSelectField
-              label="From"
-              id="intra-card-from"
-              value={field.value}
-              onValueChange={field.onChange}
-            />
+            <Field orientation="horizontal" className="w-auto gap-2">
+              <FieldLabel
+                htmlFor="intra-card-from"
+                className="text-[15px] leading-[27px] font-medium text-black"
+              >
+                From
+              </FieldLabel>
+              <Select
+                value={field.value}
+                onValueChange={field.onChange}
+                items={{ [card.id]: <CardOption /> }}
+              >
+                <SelectTrigger
+                  id="intra-card-from"
+                  icon={<CaretDownIcon className="size-6 text-[#667085]" />}
+                  className="w-[181px] gap-0 rounded-lg border-[#482ea6] px-[5px] text-sm leading-[26px] font-semibold text-[#667085] data-[size=default]:h-[33px]"
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={card.id}>
+                    <CardOption />
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </Field>
           )}
         />
         <Controller
           name="to"
           control={form.control}
           render={({ field }) => (
-            <CardSelectField
-              label="To"
-              id="intra-card-to"
-              value={field.value}
-              onValueChange={field.onChange}
-            />
+            <Field orientation="horizontal" className="w-auto gap-2">
+              <FieldLabel
+                htmlFor="intra-card-to"
+                className="text-[15px] leading-[27px] font-medium text-black"
+              >
+                To
+              </FieldLabel>
+              <Select
+                value={field.value}
+                onValueChange={field.onChange}
+                items={{ [card.id]: <CardOption /> }}
+              >
+                <SelectTrigger
+                  id="intra-card-to"
+                  icon={<CaretDownIcon className="size-6 text-[#667085]" />}
+                  className="w-[181px] gap-0 rounded-lg border-[#482ea6] px-[5px] text-sm leading-[26px] font-semibold text-[#667085] data-[size=default]:h-[33px]"
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={card.id}>
+                    <CardOption />
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </Field>
           )}
         />
       </div>
@@ -147,49 +187,6 @@ function TransferForm({ onTransfer }: { onTransfer: () => void }) {
         </Button>
       </div>
     </form>
-  );
-}
-
-type CardSelectFieldProps = {
-  label: string;
-  id: string;
-  value: string;
-  onValueChange: (value: string) => void;
-};
-
-function CardSelectField({
-  label,
-  id,
-  value,
-  onValueChange,
-}: CardSelectFieldProps) {
-  return (
-    <Field orientation="horizontal" className="w-auto gap-2">
-      <FieldLabel
-        htmlFor={id}
-        className="text-[15px] leading-[27px] font-medium text-black"
-      >
-        {label}
-      </FieldLabel>
-      <Select
-        value={value}
-        onValueChange={(nextValue) => onValueChange(nextValue as string)}
-        items={{ [card.id]: <CardOption /> }}
-      >
-        <SelectTrigger
-          id={id}
-          icon={<CaretDownIcon className="size-6 text-[#667085]" />}
-          className="w-[181px] gap-0 rounded-lg border-[#482ea6] px-[5px] text-sm leading-[26px] font-semibold text-[#667085] data-[size=default]:h-[33px]"
-        >
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value={card.id}>
-            <CardOption />
-          </SelectItem>
-        </SelectContent>
-      </Select>
-    </Field>
   );
 }
 

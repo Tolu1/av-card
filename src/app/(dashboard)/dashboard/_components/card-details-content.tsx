@@ -18,61 +18,67 @@ export function CardDetailsContent() {
         Your Card Details
       </SheetTitle>
       <dl className="flex flex-col gap-6 text-[15px] leading-[23px] font-medium text-[#667085]">
-        <DetailRow label="Card Number" className="h-[35px]">
-          <SecretValue
-            masked={cardDetails.maskedNumber}
-            value={cardDetails.number}
-            className="gap-1.5"
-          >
-            <Image
-              src="/images/logos/mastercard.svg"
-              alt="Mastercard"
-              width={31}
-              height={19}
-              className="mx-0.5 h-[19px] w-[31px]"
-            />
-          </SecretValue>
-        </DetailRow>
-        <DetailRow label="Card PIN" className="h-[39px]">
-          <SecretValue masked="****" value={cardDetails.pin} />
-        </DetailRow>
-        <DetailRow label="CVV" className="h-[39px]">
-          <SecretValue masked="***" value={cardDetails.cvv} />
-        </DetailRow>
-        <DetailRow label="Expiry Date">{cardDetails.expiryDate}</DetailRow>
-        <DetailRow label="Status">
-          <Badge className="h-6 rounded-[90px] bg-[#d6f3e9] px-[7px] text-xs leading-4 font-semibold text-[#039855]">
-            {cardDetails.status}
-          </Badge>
-        </DetailRow>
-        <DetailRow label="Card Name">{cardDetails.cardName}</DetailRow>
-        <DetailRow label="Account Number" className="h-[55px] items-center">
-          <div className="flex flex-col gap-2">
-            {cardDetails.accountNumber}
-            <CopyButton value={cardDetails.accountNumber} />
-          </div>
-        </DetailRow>
+        <div className="grid h-[35px] grid-cols-[120px_1fr] items-start gap-x-4 sm:grid-cols-[149px_1fr] sm:gap-x-[70px]">
+          <dt>Card Number</dt>
+          <dd className="text-sm leading-[23px] font-semibold text-[#101828]">
+            <SecretValue
+              masked={cardDetails.maskedNumber}
+              value={cardDetails.number}
+              className="gap-1.5"
+            >
+              <Image
+                src="/images/logos/mastercard.svg"
+                alt="Mastercard"
+                width={31}
+                height={19}
+                className="mx-0.5 h-[19px] w-[31px]"
+              />
+            </SecretValue>
+          </dd>
+        </div>
+        <div className="grid h-[39px] grid-cols-[120px_1fr] items-start gap-x-4 sm:grid-cols-[149px_1fr] sm:gap-x-[70px]">
+          <dt>Card PIN</dt>
+          <dd className="text-sm leading-[23px] font-semibold text-[#101828]">
+            <SecretValue masked="****" value={cardDetails.pin} />
+          </dd>
+        </div>
+        <div className="grid h-[39px] grid-cols-[120px_1fr] items-start gap-x-4 sm:grid-cols-[149px_1fr] sm:gap-x-[70px]">
+          <dt>CVV</dt>
+          <dd className="text-sm leading-[23px] font-semibold text-[#101828]">
+            <SecretValue masked="***" value={cardDetails.cvv} />
+          </dd>
+        </div>
+        <div className="grid grid-cols-[120px_1fr] items-start gap-x-4 sm:grid-cols-[149px_1fr] sm:gap-x-[70px]">
+          <dt>Expiry Date</dt>
+          <dd className="text-sm leading-[23px] font-semibold text-[#101828]">
+            {cardDetails.expiryDate}
+          </dd>
+        </div>
+        <div className="grid grid-cols-[120px_1fr] items-start gap-x-4 sm:grid-cols-[149px_1fr] sm:gap-x-[70px]">
+          <dt>Status</dt>
+          <dd className="text-sm leading-[23px] font-semibold text-[#101828]">
+            <Badge className="h-6 rounded-[90px] bg-[#d6f3e9] px-[7px] text-xs leading-4 font-semibold text-[#039855]">
+              {cardDetails.status}
+            </Badge>
+          </dd>
+        </div>
+        <div className="grid grid-cols-[120px_1fr] items-start gap-x-4 sm:grid-cols-[149px_1fr] sm:gap-x-[70px]">
+          <dt>Card Name</dt>
+          <dd className="text-sm leading-[23px] font-semibold text-[#101828]">
+            {cardDetails.cardName}
+          </dd>
+        </div>
+        <div className="grid h-[55px] grid-cols-[120px_1fr] items-center gap-x-4 sm:grid-cols-[149px_1fr] sm:gap-x-[70px]">
+          <dt>Account Number</dt>
+          <dd className="text-sm leading-[23px] font-semibold text-[#101828]">
+            <div className="flex flex-col gap-2">
+              {cardDetails.accountNumber}
+              <CopyButton value={cardDetails.accountNumber} />
+            </div>
+          </dd>
+        </div>
       </dl>
       <PoweredByProvidus />
-    </div>
-  );
-}
-
-type DetailRowProps = React.ComponentProps<"div"> & { label: string };
-
-function DetailRow({ label, className, children, ...props }: DetailRowProps) {
-  return (
-    <div
-      className={cn(
-        "grid grid-cols-[120px_1fr] items-start gap-x-4 sm:grid-cols-[149px_1fr] sm:gap-x-[70px]",
-        className,
-      )}
-      {...props}
-    >
-      <dt>{label}</dt>
-      <dd className="text-sm leading-[23px] font-semibold text-[#101828]">
-        {children}
-      </dd>
     </div>
   );
 }

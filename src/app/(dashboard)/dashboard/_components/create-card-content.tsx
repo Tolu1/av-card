@@ -32,6 +32,17 @@ export function CreateCardContent() {
           : "rounded-b-[20px] bg-[#fcfcfd] px-3 pb-7 sm:w-[518px]",
       )}
     >
+      {step !== "success" && (
+        <div className="relative -mx-3 h-[204px] overflow-hidden">
+          <Image
+            src="/images/dashboard/virtual-cards.png"
+            alt=""
+            width={223}
+            height={260}
+            className="absolute top-[-30px] left-[calc(50%-128px)] h-[260px] w-[223px] max-w-none -rotate-[49.15deg]"
+          />
+        </div>
+      )}
       {step === "fees" && <FeesStep onProceed={() => setStep("pin")} />}
       {step === "pin" && <PinStep onContinue={() => setStep("success")} />}
       {step === "success" && (
@@ -46,41 +57,18 @@ export function CreateCardContent() {
   );
 }
 
-function CardsHeader({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
-  return (
-    <>
-      <div className="relative -mx-3 h-[204px] overflow-hidden">
-        <Image
-          src="/images/dashboard/virtual-cards.png"
-          alt=""
-          width={223}
-          height={260}
-          className="absolute top-[-30px] left-[calc(50%-128px)] h-[260px] w-[223px] max-w-none -rotate-[49.15deg]"
-        />
-      </div>
-      <div className="flex flex-col items-center gap-[7px] text-center text-[#101828]">
-        <SheetTitle className="text-xl leading-6 font-bold">{title}</SheetTitle>
-        <SheetDescription className="max-w-[420px] text-sm leading-[23px] font-medium text-[#101828]">
-          {description}
-        </SheetDescription>
-      </div>
-    </>
-  );
-}
-
 function FeesStep({ onProceed }: { onProceed: () => void }) {
   return (
     <>
-      <CardsHeader
-        title="Create a New Virtual Card"
-        description="Set up a new card in seconds to start spending securely and on your own terms."
-      />
+      <div className="flex flex-col items-center gap-[7px] text-center text-[#101828]">
+        <SheetTitle className="text-xl leading-6 font-bold">
+          Create a New Virtual Card
+        </SheetTitle>
+        <SheetDescription className="max-w-[420px] text-sm leading-[23px] font-medium text-[#101828]">
+          Set up a new card in seconds to start spending securely and on your
+          own terms.
+        </SheetDescription>
+      </div>
       <div className="mt-[17px] flex flex-col gap-7 px-7">
         <div className="flex flex-col gap-5 rounded-[5px] bg-[#f2f4f7] p-5 text-sm leading-[23px] text-[#101828]">
           <p className="flex items-center gap-2.5 font-semibold">
@@ -139,10 +127,15 @@ function PinStep({ onContinue }: { onContinue: () => void }) {
 
   return (
     <>
-      <CardsHeader
-        title="Lock It In with a PIN"
-        description="Choose a 4-digit code you’ll use to approve payments and keep your card secure."
-      />
+      <div className="flex flex-col items-center gap-[7px] text-center text-[#101828]">
+        <SheetTitle className="text-xl leading-6 font-bold">
+          Lock It In with a PIN
+        </SheetTitle>
+        <SheetDescription className="max-w-[420px] text-sm leading-[23px] font-medium text-[#101828]">
+          Choose a 4-digit code you’ll use to approve payments and keep your
+          card secure.
+        </SheetDescription>
+      </div>
       <form
         noValidate
         onSubmit={form.handleSubmit(onContinue)}
