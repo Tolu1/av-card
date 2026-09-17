@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
@@ -18,6 +17,7 @@ import {
 import { cn } from "@/lib/utils";
 import { card } from "@/data/cards";
 import { CardOption } from "./card-option";
+import { SuccessAnimation } from "./success-animation";
 import { CaretDownIcon } from "./icons";
 import { PinInput } from "./pin-input";
 
@@ -38,7 +38,7 @@ export function IntraCardTransfer({
   return (
     <section
       className={cn(
-        "rounded-2xl border-[0.73px] border-[#e8e8e8] bg-white shadow-[0_4px_4px_rgb(0_0_0/0.02)] lg:h-[220px]",
+        "min-h-[184px] rounded-2xl border-[0.73px] border-[#e8e8e8] bg-white shadow-[0_4px_4px_rgb(0_0_0/0.02)] lg:h-[220px]",
         className,
       )}
       {...props}
@@ -46,15 +46,9 @@ export function IntraCardTransfer({
       {step === "form" && <TransferForm onTransfer={() => setStep("pin")} />}
       {step === "pin" && <PinForm onTransfer={() => setStep("success")} />}
       {step === "success" && (
-        <div className="flex h-full flex-col items-center pt-5">
-          <Image
-            src="/images/dashboard/success-placeholder.png"
-            alt=""
-            width={149}
-            height={150}
-            className="h-[150px] w-[149px] object-cover"
-          />
-          <p className="mt-2.5 text-xl leading-6 font-bold text-[#322074]">
+        <div className="flex h-full flex-col items-center pt-2.5 lg:pt-5">
+          <SuccessAnimation className="size-[133px] lg:size-[149px]" />
+          <p className="mt-1.5 text-[17px] leading-6 font-bold text-[#322074] lg:mt-2.5 lg:text-xl">
             Transaction Successful!
           </p>
         </div>
@@ -84,38 +78,47 @@ function TransferForm({ onTransfer }: { onTransfer: () => void }) {
     <form
       noValidate
       onSubmit={form.handleSubmit(onTransfer)}
-      className="flex flex-col px-7 pt-[27px] pb-9"
+      className="flex flex-col px-2.5 pt-[17px] pb-[18px] lg:px-7 lg:pt-[27px] lg:pb-9"
     >
-      <h2 className="text-lg leading-[27px] font-semibold text-[#322074]">
+      <h2 className="text-sm leading-[27px] font-semibold text-[#322074] lg:text-lg">
         Intra-Card Transfer
       </h2>
-      <div className="mt-5 flex flex-wrap justify-between gap-x-3 gap-y-4">
+      <div className="mt-[18px] grid grid-cols-2 gap-x-3 min-[440px]:flex min-[440px]:flex-wrap min-[440px]:gap-x-[15px] min-[440px]:gap-y-4 lg:mt-5 lg:justify-between lg:gap-x-3">
         <Controller
           name="from"
           control={form.control}
           render={({ field }) => (
-            <Field orientation="horizontal" className="w-auto gap-2">
+            <Field
+              orientation="horizontal"
+              className="w-auto max-[439px]:flex-col max-[439px]:items-start max-[439px]:gap-1 min-[440px]:gap-3 lg:gap-2"
+            >
               <FieldLabel
                 htmlFor="intra-card-from"
-                className="text-[15px] leading-[27px] font-medium text-black"
+                className="text-[13px] leading-[27px] font-medium text-black lg:text-[15px]"
               >
                 From
               </FieldLabel>
               <Select
                 value={field.value}
                 onValueChange={field.onChange}
-                items={{ [card.id]: <CardOption /> }}
+                items={{
+                  [card.id]: (
+                    <CardOption className="mr-0 h-[17px] w-[29px] lg:mr-[5px] lg:h-[19px] lg:w-[31px]" />
+                  ),
+                }}
               >
                 <SelectTrigger
                   id="intra-card-from"
-                  icon={<CaretDownIcon className="size-6 text-[#667085]" />}
-                  className="w-[181px] gap-0 rounded-lg border-[#482ea6] px-[5px] text-sm leading-[26px] font-semibold text-[#667085] data-[size=default]:h-[33px]"
+                  icon={
+                    <CaretDownIcon className="-ml-1 size-[22px] text-[#667085] lg:ml-0 lg:size-6" />
+                  }
+                  className="w-full gap-0 rounded-lg border-[#482ea6] px-0 pr-px text-xs leading-[26px] font-semibold text-[#667085] data-[size=default]:h-7 min-[440px]:w-[148px] lg:w-[181px] lg:px-[5px] lg:text-sm lg:data-[size=default]:h-[33px]"
                 >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value={card.id}>
-                    <CardOption />
+                    <CardOption className="mr-0 h-[17px] w-[29px] lg:mr-[5px] lg:h-[19px] lg:w-[31px]" />
                   </SelectItem>
                 </SelectContent>
               </Select>
@@ -126,28 +129,37 @@ function TransferForm({ onTransfer }: { onTransfer: () => void }) {
           name="to"
           control={form.control}
           render={({ field }) => (
-            <Field orientation="horizontal" className="w-auto gap-2">
+            <Field
+              orientation="horizontal"
+              className="w-auto max-[439px]:flex-col max-[439px]:items-start max-[439px]:gap-1 min-[440px]:gap-3 lg:gap-2"
+            >
               <FieldLabel
                 htmlFor="intra-card-to"
-                className="text-[15px] leading-[27px] font-medium text-black"
+                className="text-[13px] leading-[27px] font-medium text-black lg:text-[15px]"
               >
                 To
               </FieldLabel>
               <Select
                 value={field.value}
                 onValueChange={field.onChange}
-                items={{ [card.id]: <CardOption /> }}
+                items={{
+                  [card.id]: (
+                    <CardOption className="mr-0 h-[17px] w-[29px] lg:mr-[5px] lg:h-[19px] lg:w-[31px]" />
+                  ),
+                }}
               >
                 <SelectTrigger
                   id="intra-card-to"
-                  icon={<CaretDownIcon className="size-6 text-[#667085]" />}
-                  className="w-[181px] gap-0 rounded-lg border-[#482ea6] px-[5px] text-sm leading-[26px] font-semibold text-[#667085] data-[size=default]:h-[33px]"
+                  icon={
+                    <CaretDownIcon className="-ml-1 size-[22px] text-[#667085] lg:ml-0 lg:size-6" />
+                  }
+                  className="w-full gap-0 rounded-lg border-[#482ea6] px-0 pr-px text-xs leading-[26px] font-semibold text-[#667085] data-[size=default]:h-7 min-[440px]:w-[148px] lg:w-[181px] lg:px-[5px] lg:text-sm lg:data-[size=default]:h-[33px]"
                 >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value={card.id}>
-                    <CardOption />
+                    <CardOption className="mr-0 h-[17px] w-[29px] lg:mr-[5px] lg:h-[19px] lg:w-[31px]" />
                   </SelectItem>
                 </SelectContent>
               </Select>
@@ -155,15 +167,18 @@ function TransferForm({ onTransfer }: { onTransfer: () => void }) {
           )}
         />
       </div>
-      <div className="mt-8 flex flex-wrap items-center justify-between gap-4 pl-1.5">
+      <div className="mt-4 grid grid-cols-2 items-end gap-x-3 min-[440px]:mt-[25px] min-[440px]:flex min-[440px]:flex-wrap min-[440px]:items-center min-[440px]:justify-between min-[440px]:gap-4 lg:mt-8 lg:pl-1.5">
         <Controller
           name="amount"
           control={form.control}
           render={({ field, fieldState }) => (
-            <Field orientation="horizontal" className="w-auto gap-2">
+            <Field
+              orientation="horizontal"
+              className="w-auto max-[439px]:flex-col max-[439px]:items-start max-[439px]:gap-1 min-[440px]:gap-3 lg:gap-2"
+            >
               <FieldLabel
                 htmlFor="intra-card-amount"
-                className="text-[15px] leading-[27px] font-medium text-black"
+                className="text-[13px] leading-[27px] font-medium text-black lg:text-[15px]"
               >
                 Amount
               </FieldLabel>
@@ -173,7 +188,7 @@ function TransferForm({ onTransfer }: { onTransfer: () => void }) {
                 inputMode="decimal"
                 placeholder="Enter Amount"
                 aria-invalid={fieldState.invalid}
-                className="h-[33px] w-[181px] rounded-lg border-[#482ea6] px-2 text-xs leading-[27px] placeholder:text-[#d0d5dd] md:text-xs"
+                className="h-7 w-full rounded-lg border-[#482ea6] px-3 text-xs leading-[27px] placeholder:text-[#d0d5dd] min-[440px]:w-[148px] md:text-xs lg:h-[33px] lg:w-[181px] lg:px-2"
               />
             </Field>
           )}
@@ -181,7 +196,7 @@ function TransferForm({ onTransfer }: { onTransfer: () => void }) {
         <Button
           type="submit"
           size="md"
-          className="w-[164px] text-base leading-[19px] font-medium tracking-[0.48px]"
+          className="h-[39px] w-full rounded-xl text-[15px] leading-[18px] font-medium tracking-[0.45px] min-[440px]:w-[148px] lg:h-[43px] lg:w-[164px] lg:rounded-[15px] lg:text-base lg:leading-[19px] lg:tracking-[0.48px]"
         >
           Transfer
         </Button>
@@ -207,19 +222,19 @@ function PinForm({ onTransfer }: { onTransfer: () => void }) {
     <form
       noValidate
       onSubmit={form.handleSubmit(onTransfer)}
-      className="flex flex-col items-center px-[15px] pt-[13px] text-center text-[#322074]"
+      className="flex flex-col items-center px-2.5 pt-1.5 text-center text-[#322074] lg:px-[15px] lg:pt-[13px]"
     >
-      <h2 className="text-lg leading-[27px] font-semibold">
+      <h2 className="text-sm leading-[23px] font-semibold lg:text-lg lg:leading-[27px]">
         Enter Your 4 Digit Pin
       </h2>
-      <p className="text-[13px] leading-[27px]">
+      <p className="text-xs leading-[27px] lg:text-[13px]">
         Enter your PIN to proceed with the transaction
       </p>
       <Controller
         name="pin"
         control={form.control}
         render={({ field }) => (
-          <Field className="mt-[15px] w-auto items-center">
+          <Field className="mt-2 w-auto items-center lg:mt-[15px]">
             <FieldLabel htmlFor="intra-card-pin" className="sr-only">
               PIN
             </FieldLabel>
@@ -236,7 +251,7 @@ function PinForm({ onTransfer }: { onTransfer: () => void }) {
         type="submit"
         size="md"
         disabled={!form.formState.isValid}
-        className="mt-6 w-[209px] text-base leading-[19px] font-medium tracking-[0.48px]"
+        className="mt-[15px] h-[39px] w-[213px] rounded-xl text-[15px] leading-[18px] font-medium tracking-[0.45px] lg:mt-6 lg:h-[43px] lg:w-[209px] lg:rounded-[15px] lg:text-base lg:leading-[19px] lg:tracking-[0.48px]"
       >
         Transfer
       </Button>

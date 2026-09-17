@@ -1,10 +1,10 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   SheetClose,
   SheetDescription,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { SuccessAnimation } from "./success-animation";
 
 type SuccessMessageProps = {
   title: string;
@@ -21,13 +21,7 @@ export function SuccessMessage({
 }: SuccessMessageProps) {
   return (
     <div className="flex flex-col items-center gap-7 text-center">
-      <Image
-        src="/images/dashboard/success-placeholder.png"
-        alt=""
-        width={198}
-        height={198}
-        className="size-[198px] object-cover"
-      />
+      <SuccessAnimation className="size-[198px]" />
       <div className="flex flex-col items-center gap-5">
         <div className="flex flex-col items-center gap-2.5">
           <SheetTitle className="text-2xl leading-6 font-bold text-[#322074]">

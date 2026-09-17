@@ -5,6 +5,14 @@ export interface Card {
   exchangeRate: string;
 }
 
+export interface VirtualCard {
+  id: string;
+  maskedNumber: string;
+  balance: string;
+  cvv: string;
+  expiryDate: string;
+}
+
 export interface CardDetails {
   maskedNumber: string;
   number: string;

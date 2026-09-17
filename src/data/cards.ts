@@ -1,4 +1,9 @@
-import type { Card, CardDetails, FundingAccount } from "@/interfaces/card";
+import type {
+  Card,
+  CardDetails,
+  FundingAccount,
+  VirtualCard,
+} from "@/interfaces/card";
 
 export const card: Card = {
   id: "4567",
@@ -6,6 +11,30 @@ export const card: Card = {
   balance: "₦1,100,000.00",
   exchangeRate: "$1 = ₦1,606.78",
 };
+
+export const virtualCards: VirtualCard[] = [
+  {
+    id: "1",
+    maskedNumber: "9203***********0902",
+    balance: "₦1,100,000.00",
+    cvv: "343",
+    expiryDate: "06/28",
+  },
+  {
+    id: "2",
+    maskedNumber: "9203***********0902",
+    balance: "₦1,100,000.00",
+    cvv: "343",
+    expiryDate: "06/28",
+  },
+  {
+    id: "3",
+    maskedNumber: "9203***********0902",
+    balance: "₦1,100,000.00",
+    cvv: "343",
+    expiryDate: "06/28",
+  },
+];
 
 export const cardDetails: CardDetails = {
   maskedNumber: "9203***********0902",
